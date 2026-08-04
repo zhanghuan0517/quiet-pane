@@ -182,7 +182,7 @@ function setupTray() {
     img.setTemplateImage(true)
   }
   tray = new Tray(img.isEmpty() ? nativeImage.createEmpty() : img)
-  tray.setToolTip('Goof-off')
+  tray.setToolTip('QuietPane')
   refreshTrayMenu()
 }
 

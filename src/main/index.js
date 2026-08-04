@@ -15,6 +15,7 @@ import { diagnosticLogger } from './diagnosticLogger.js'
 import { getTransparencyPrefs, initTransparencyPrefs } from './transparencyService.js'
 import { syncPlainViewForMergedTransparency } from './transparencySceneSync.js'
 import { applySystemVisibilityPrefs, getSystemPrefs } from './systemVisibilityPrefs.js'
+import { installDefaultSessionPolicy } from './permissionPolicy.js'
 
 protocol.registerSchemesAsPrivileged([
   {
@@ -65,7 +66,8 @@ app.whenReady().then(async () => {
   diagnosticLogger.cleanup().catch(() => {})
   diagnosticLogger.info('app.ready', { platform: process.platform }, 'main')
   ensurePlatformDefaults()
-  electronApp.setAppUserModelId('com.cl.goof-off-app')
+  electronApp.setAppUserModelId('io.github.zhanghuan0517.quietpane')
+  installDefaultSessionPolicy()
 
   initTransparencyPrefs()
   try {

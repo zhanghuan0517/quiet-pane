@@ -35,7 +35,7 @@ export function shouldInjectPlainView({
 
 const UA_KEYS = ['mac', 'win', 'iphone', 'ipad']
 const DEFAULT_WEB_PREFS = Object.freeze({
-  ua: 'iphone',
+  ua: 'mac',
   compat: false,
   zoom: 1,
   hideScrollbar: true,

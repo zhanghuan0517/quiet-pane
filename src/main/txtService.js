@@ -7,6 +7,7 @@ import store, { persistDebounced, flushPending as flushStorePending } from './st
 import { getMainWindow } from './windowManager.js'
 import { fileAccessFailure } from './fileAccessFailure.js'
 import { normalizeTxtPrefs, sanitizeTxtPrefsPatch } from './preferencesModel.js'
+import { getBooksDirectory } from './safePaths.js'
 
 const LRU_MAX = 200
 const WORKER_THRESHOLD = 256 * 1024
@@ -201,6 +202,7 @@ export async function openDialog() {
   const generation = maintenanceOpenGeneration
   const win = getMainWindow()
   const result = await dialog.showOpenDialog(win, {
+    defaultPath: getBooksDirectory(),
     filters: [{ name: 'Text Files', extensions: ['txt'] }],
     properties: ['openFile']
   })

@@ -56,7 +56,7 @@ function macPolicy() {
     primaryModifier: 'Command',
     forbiddenPageKeyModifiers: ['Command', 'Meta', 'Cmd'],
     defaultBossKeys: { hide: 'Command+\\', kill: 'Shift+Command+\\' },
-    defaultWebPrefs: { ua: 'iphone' },
+    defaultWebPrefs: { ua: 'mac' },
     menu: { preferencesAccelerator: 'CmdOrCtrl+,' },
     window: {
       keepAlivePanelsAfterMainClose: true,
@@ -87,7 +87,7 @@ function windowsPolicy() {
     primaryModifier: 'Control',
     forbiddenPageKeyModifiers: ['Control', 'Command', 'Meta', 'Cmd'],
     defaultBossKeys: { hide: 'Control+\\', kill: 'Shift+Control+\\' },
-    defaultWebPrefs: { ua: 'iphone' },
+    defaultWebPrefs: { ua: 'win' },
     menu: { preferencesAccelerator: 'CmdOrCtrl+,' },
     window: {
       keepAlivePanelsAfterMainClose: false,
@@ -116,7 +116,7 @@ function unsupportedPolicy(platform, family) {
     family,
     supported: false,
     productPlatformLabel: family === 'linux' ? 'Linux' : 'Unsupported',
-    defaultWebPrefs: { ua: 'iphone' },
+    defaultWebPrefs: { ua: 'mac' },
     window: {
       ...windowsPolicy().window,
       maskTransparentPanelReveal: false,

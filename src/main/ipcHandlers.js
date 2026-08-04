@@ -59,6 +59,7 @@ import { createAppMaintenanceService } from './appMaintenanceService.js'
 import { syncPlainViewForMergedTransparency } from './transparencySceneSync.js'
 import { getAddressSuggestions } from './addressSuggestionsService.js'
 import { applySystemVisibilityPrefs, getSystemPrefs } from './systemVisibilityPrefs.js'
+import { getBooksDirectory, getSettingsDirectory } from './safePaths.js'
 
 const PROTECTED_CONFIG_KEYS = new Set(['startupRestoreIntent', 'diagnosticPrefs'])
 const MAIN_ALLOWED_WEB_PREFS = ['plainView', 'hideMedia', 'wheelSpeed']
@@ -1095,7 +1096,7 @@ export function registerIpcHandlers({
       try {
         result = await dialog.showSaveDialog(lease.createdWindow, {
           title: '导出配置',
-          defaultPath: 'goof-off-preferences.json',
+          defaultPath: join(getSettingsDirectory(), 'quiet-pane-preferences.json'),
           filters: [{ name: 'JSON', extensions: ['json'] }]
         })
       } catch {
@@ -1111,7 +1112,7 @@ export function registerIpcHandlers({
           ok: true,
           bundle: {
             version: 1,
-            app: 'goof-off-app',
+            app: 'quiet-pane',
             exportedAt: new Date().toISOString(),
             prefs: buildPreferenceBundlePrefs(getRawManagedPrefs(), platformPolicy)
           }
@@ -1142,6 +1143,7 @@ export function registerIpcHandlers({
       try {
         result = await dialog.showOpenDialog(lease.createdWindow, {
           title: '导入配置',
+          defaultPath: getSettingsDirectory(),
           filters: [{ name: 'JSON', extensions: ['json'] }],
           properties: ['openFile']
         })
@@ -1166,7 +1168,11 @@ export function registerIpcHandlers({
       } catch (err) {
         return { ok: false, reason: 'parse-error', message: err?.message || '导入失败' }
       }
-      if (parsed?.app !== 'goof-off-app' || parsed?.version !== 1 || !parsed?.prefs) {
+      if (
+        !['quiet-pane', 'goof-off-app'].includes(parsed?.app) ||
+        parsed?.version !== 1 ||
+        !parsed?.prefs
+      ) {
         return { ok: false, reason: 'invalid-bundle', message: '配置文件格式不匹配' }
       }
       return await enqueueManagedPreferenceTransaction(async () => {
@@ -1354,6 +1360,7 @@ export function registerIpcHandlers({
   async function openAnyReadableFileDialog() {
     const win = getMainWindow()
     const result = await dialog.showOpenDialog(win, {
+      defaultPath: getBooksDirectory(),
       filters: [{ name: 'Readable Files', extensions: ['txt', 'epub', 'pdf'] }],
       properties: ['openFile']
     })

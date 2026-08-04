@@ -2,13 +2,13 @@
 
 <div align="center">
 
-<img src="resources/icon.png" width="112" alt="Goof Off logo" />
+<img src="resources/icon.png" width="112" alt="QuietPane logo" />
 
-# Goof Off
+# QuietPane
 
 **Keep web pages and local documents in a small window you can hide at any time.**
 
-Goof Off combines TXT, EPUB, and PDF reading with web browsing, plus background transparency, auto-hide, mouse click-through, and global boss keys.
+QuietPane combines TXT, EPUB, and PDF reading with web browsing, plus background transparency, auto-hide, mouse click-through, global boss keys, and targeted compatibility work for sites such as Fenbi.
 
 ![License](https://img.shields.io/badge/license-GPL--3.0-blue)
 ![Platform](https://img.shields.io/badge/platform-macOS%20Apple%20Silicon%20%7C%20Windows%2011%20x64-lightgrey)
@@ -20,12 +20,12 @@ Goof Off combines TXT, EPUB, and PDF reading with web browsing, plus background 
 </div>
 
 <p align="center">
-  <img src="./.github/assets/stealth.webp" width="900" alt="Goof Off switching from normal reading to a hidden background, faded UI, and auto-hide" />
+  <img src="./.github/assets/stealth.webp" width="900" alt="QuietPane switching from normal reading to a hidden background, faded UI, and auto-hide" />
 </p>
 
 <p align="center"><sub>Captured on macOS; Windows 11 provides the same core capabilities.</sub></p>
 
-## Why Goof Off
+## Why QuietPane
 
 - **Disappear when needed**: Enable Hide Background to let content float directly over your desktop. You can also fade the UI and automatically hide the toolbars or reading content when the pointer leaves the window. While the reading content is hidden, mouse clicks pass through to the window underneath.
 - **One place for everything**: Open web pages, TXT, EPUB, and PDF files in the same window. Drag in a local file and the app detects its format automatically.
@@ -34,17 +34,17 @@ Goof Off combines TXT, EPUB, and PDF reading with web browsing, plus background 
 
 ## Download and Install
 
-Download the latest release from [Releases](https://github.com/triWater-Chen/goof-off/releases):
+Download the latest release from [Releases](https://github.com/zhanghuan0517/quiet-pane/releases):
 
-| Platform            | File                                                 | Description                                     |
-| ------------------- | ---------------------------------------------------- | ----------------------------------------------- |
-| Windows 11 x64      | `Goof-Off-x.x.x-Setup.exe`                           | Installer; lets you choose the install location |
-| Windows 11 x64      | `Goof-Off-x.x.x-Portable.zip`                        | Extract fully, then run the executable in place |
-| macOS Apple Silicon | `Goof-Off-x.x.x-mac.dmg` or `Goof-Off-x.x.x-mac.zip` | For Macs with Apple silicon (M-series)          |
+| Platform            | File                                                   | Description                                     |
+| ------------------- | ------------------------------------------------------ | ----------------------------------------------- |
+| Windows 11 x64      | `QuietPane-x.x.x-Setup.exe`                            | Installer; lets you choose the install location |
+| Windows 11 x64      | `QuietPane-x.x.x-Portable.zip`                         | Extract fully, then run the executable in place |
+| macOS Apple Silicon | `QuietPane-x.x.x-mac.dmg` or `QuietPane-x.x.x-mac.zip` | For Macs with Apple silicon (M-series)          |
 
 > Current release packages are not signed with a trusted developer certificate, so your system may display a security warning. On Windows, choose “More info → Run anyway” if SmartScreen appears. On macOS, if the developer cannot be verified, right-click the app in Finder and choose “Open.” Download the app only from this repository's Releases page.
 
-Extract the Windows portable archive completely and keep all files together. You can then run `goof-off-app.exe` directly without unpacking temporary files on every launch.
+Extract the Windows portable archive completely and keep all files together. You can then run `quiet-pane.exe` directly without unpacking temporary files on every launch.
 
 <details>
 <summary><strong>Run from source</strong></summary>
@@ -52,11 +52,13 @@ Extract the Windows portable archive completely and keep all files together. You
 Requires Node.js ≥ 22.12.0 and npm ≥ 10.9.3.
 
 ```bash
-git clone https://github.com/triWater-Chen/goof-off.git
-cd goof-off
+git clone https://github.com/zhanghuan0517/quiet-pane.git
+cd quiet-pane
 npm install
 npm run dev
 ```
+
+QuietPane is derived from triWater-Chen's Goof Off, remains licensed under GPL-3.0, and preserves the full upstream commit history.
 
 </details>
 
@@ -100,14 +102,14 @@ npm run dev
 
 ### Move the window
 
-Goof Off uses a frameless window on both macOS and Windows 11. Hold one of these drag regions and move the pointer:
+QuietPane uses a frameless window on both macOS and Windows 11. Hold one of these drag regions and move the pointer:
 
-| Current state | Where to drag |
-| --- | --- |
-| **Normal window** | Use a blank part of the top bar that contains no button or input; the blank area at the upper left is the easiest target. Buttons, the address field, and document content remain available for normal interaction and cannot move the window. |
-| **Toolbars are auto-hidden** | Use the narrow transparent drag strip, about 6 px high, along the very top edge. You can also move the pointer over a top-bar button area or near the bottom edge of the top bar, then drag a blank part of the restored bar. |
-| **TXT / EPUB Mini Mode** | Drag the file name or another blank part of the visible top bar, or use either narrow transparent side rail between the top and bottom bars. |
-| **Body is hidden with click-through** | First move the pointer into a button area in the top or bottom bar to restore the body and disable click-through, then use one of the regions above. Blank drag regions do not restore the hidden body. |
+| Current state                         | Where to drag                                                                                                                                                                                                                                  |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Normal window**                     | Use a blank part of the top bar that contains no button or input; the blank area at the upper left is the easiest target. Buttons, the address field, and document content remain available for normal interaction and cannot move the window. |
+| **Toolbars are auto-hidden**          | Use the narrow transparent drag strip, about 6 px high, along the very top edge. You can also move the pointer over a top-bar button area or near the bottom edge of the top bar, then drag a blank part of the restored bar.                  |
+| **TXT / EPUB Mini Mode**              | Drag the file name or another blank part of the visible top bar, or use either narrow transparent side rail between the top and bottom bars.                                                                                                   |
+| **Body is hidden with click-through** | First move the pointer into a button area in the top or bottom bar to restore the body and disable click-through, then use one of the regions above. Blank drag regions do not restore the hidden body.                                        |
 
 > Hide Background, Fade UI, and Always on Top do not change how window dragging works.
 
@@ -128,10 +130,10 @@ Goof Off uses a frameless window on both macOS and Windows 11. Hold one of these
 
 Boss keys are system-wide global shortcuts, so they continue to work even while the window is hidden:
 
-| Action | Windows | macOS | Result |
-| --- | --- | --- | --- |
-| Hide / restore | `Ctrl + \` | `⌘ + \` | Hides the window instantly; press again to restore it |
-| Kill switch | `Shift + Ctrl + \` | `⇧ + ⌘ + \` | Quits the app immediately without confirmation |
+| Action         | Windows            | macOS       | Result                                                |
+| -------------- | ------------------ | ----------- | ----------------------------------------------------- |
+| Hide / restore | `Ctrl + \`         | `⌘ + \`     | Hides the window instantly; press again to restore it |
+| Kill switch    | `Shift + Ctrl + \` | `⇧ + ⌘ + \` | Quits the app immediately without confirmation        |
 
 Rebind them under “偏好设置 → 快捷键 → 老板键” (Preferences → Shortcuts → Boss Keys). If you cannot find the window, you can also click the system tray icon and choose “恢复显示” (Restore).
 
@@ -142,31 +144,31 @@ Rebind them under “偏好设置 → 快捷键 → 老板键” (Preferences �
 While reading TXT or EPUB, choose “更多 → 精简模式” (More → Mini Mode) to shrink the window to 280 × 500 pixels and reduce visual distraction. Web pages and PDF files do not currently support Mini Mode.
 
 <p align="center">
-  <img src="./.github/assets/mini.png" width="280" alt="Goof Off TXT Mini Mode" />
+  <img src="./.github/assets/mini.png" width="280" alt="QuietPane TXT Mini Mode" />
 </p>
 
 ## Feature Overview
 
-| Content | Core capabilities |
-| --- | --- |
-| **Web** | Smart address bar, suggestions from history and favorites, iPhone / iPad / macOS / Windows user agents (UA), per-site overrides, Plain View (softened page backgrounds), hide images and video, hide scrollbars, page zoom, and wheel-speed control |
-| **TXT** | Hierarchical chapter list, full-text search, encoding detection and switching, font size / line height / font family, auto page-turn, background parsing for large files, and on-demand rendering |
-| **EPUB** | Table of contents, book-wide search, scrolling / paginated modes, font size / line height / font family, auto page-turn, one-click image visibility (hidden by default), and Mini Mode; DRM-protected books and fixed-layout comics or art books are not supported |
-| **PDF** | Embedded bookmark outline, Fit Width / Fit Page / 25%–400% zoom, page jumping, on-demand streaming, and full-page custom duotone colors; full-text search and text selection, forms and printing, and Mini Mode are not supported |
-| **History and restore** | Web and file history each keep the latest 100 entries and can be deleted individually, cleared, or disabled completely; each file stores its own progress, while commonly used typography and modes are saved as preferences |
+| Content                 | Core capabilities                                                                                                                                                                                                                                                  |
+| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Web**                 | Smart address bar, suggestions from history and favorites, iPhone / iPad / macOS / Windows user agents (UA), per-site overrides, Plain View (softened page backgrounds), hide images and video, hide scrollbars, page zoom, and wheel-speed control                |
+| **TXT**                 | Hierarchical chapter list, full-text search, encoding detection and switching, font size / line height / font family, auto page-turn, background parsing for large files, and on-demand rendering                                                                  |
+| **EPUB**                | Table of contents, book-wide search, scrolling / paginated modes, font size / line height / font family, auto page-turn, one-click image visibility (hidden by default), and Mini Mode; DRM-protected books and fixed-layout comics or art books are not supported |
+| **PDF**                 | Embedded bookmark outline, Fit Width / Fit Page / 25%–400% zoom, page jumping, on-demand streaming, and full-page custom duotone colors; full-text search and text selection, forms and printing, and Mini Mode are not supported                                  |
+| **History and restore** | Web and file history each keep the latest 100 entries and can be deleted individually, cleared, or disabled completely; each file stores its own progress, while commonly used typography and modes are saved as preferences                                       |
 
 ## Frequently Used Shortcuts
 
-| Keys | Action |
-| --- | --- |
-| `Ctrl/⌘ + O` | Open TXT |
-| `Ctrl/⌘ + Shift + O` | Open EPUB |
-| `Ctrl/⌘ + Alt + O` | Open PDF |
-| `Space` / `Shift + Space` | Next / previous page; configurable in Preferences |
-| `Ctrl/⌘ + F` | Full-text search in TXT / EPUB |
-| `Ctrl/⌘ + =` / `-` / `0` | Zoom in / out / reset PDF zoom |
-| `Ctrl/⌘ + ,` | Open Preferences |
-| `Esc` | Dismiss the active panel, menu, or input field one layer at a time |
+| Keys                      | Action                                                             |
+| ------------------------- | ------------------------------------------------------------------ |
+| `Ctrl/⌘ + O`              | Open TXT                                                           |
+| `Ctrl/⌘ + Shift + O`      | Open EPUB                                                          |
+| `Ctrl/⌘ + Alt + O`        | Open PDF                                                           |
+| `Space` / `Shift + Space` | Next / previous page; configurable in Preferences                  |
+| `Ctrl/⌘ + F`              | Full-text search in TXT / EPUB                                     |
+| `Ctrl/⌘ + =` / `-` / `0`  | Zoom in / out / reset PDF zoom                                     |
+| `Ctrl/⌘ + ,`              | Open Preferences                                                   |
+| `Esc`                     | Dismiss the active panel, menu, or input field one layer at a time |
 
 <details>
 <summary><strong>What else can I change in Preferences?</strong></summary>
@@ -190,7 +192,7 @@ Click “历史” (History) on the home page to switch between web and file his
 <details>
 <summary><strong>The window suddenly disappeared. How do I get it back?</strong></summary>
 
-If the window is still present but the reading content or toolbars have disappeared, auto-hide is active. Move the pointer into a button area in the top or bottom bar; boss keys cannot restore auto-hidden content. If the entire window is gone, press the Hide / Restore boss key again (default `Ctrl+\` or `⌘+\`), or click the Goof Off icon in the system tray and choose “恢复显示” (Restore).
+If the window is still present but the reading content or toolbars have disappeared, auto-hide is active. Move the pointer into a button area in the top or bottom bar; boss keys cannot restore auto-hidden content. If the entire window is gone, press the Hide / Restore boss key again (default `Ctrl+\` or `⌘+\`), or click the QuietPane icon in the system tray and choose “恢复显示” (Restore).
 
 </details>
 
@@ -211,7 +213,7 @@ In the TXT bottom bar, open “排版 → 编码” (Typography → Encoding) an
 <details>
 <summary><strong>A comic or art-book EPUB opens blank. I cannot select text in a PDF. Why?</strong></summary>
 
-Goof Off targets long-form, text-first reading. Both behaviors are deliberate trade-offs rather than defects:
+QuietPane targets long-form, text-first reading. Both behaviors are deliberate trade-offs rather than defects:
 
 - **EPUB** is rendered as reflowable text, and images in the text are hidden by default, so comics, art books, and scanned books whose pages are entirely images open as blank pages. Those books need a large, high-fidelity canvas, which conflicts with the small disguised window this app is built around; use a dedicated reader instead. The publisher's own typography and colors are also normalized to your chosen reading colors, and in-book scripts, narration audio, and DRM-protected books are not supported.
 - **PDF** pages are rendered only as images, with no text layer, so text cannot be selected, copied, searched, or extracted, and annotations, form filling, printing, and exporting are unavailable. Custom Colors flattens each page to two colors, so turn it off when you need accurate colors.
@@ -219,9 +221,9 @@ Goof Off targets long-form, text-first reading. Both behaviors are deliberate tr
 </details>
 
 <details>
-<summary><strong>Does Goof Off support Intel Macs, Windows 10, or Linux?</strong></summary>
+<summary><strong>Does QuietPane support Intel Macs, Windows 10, or Linux?</strong></summary>
 
-Goof Off officially supports Macs with Apple silicon (M-series) and Windows 11 x64. Intel Macs, Windows 10, Windows ARM64, and Linux are not currently guaranteed to work.
+QuietPane officially supports Macs with Apple silicon (M-series) and Windows 11 x64. Intel Macs, Windows 10, Windows ARM64, and Linux are not currently guaranteed to work.
 
 </details>
 

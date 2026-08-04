@@ -1,5 +1,7 @@
-appId: com.cl.goof-off-app
-productName: Goof Off
+appId: io.github.zhanghuan0517.quietpane
+productName: QuietPane
+copyright: Copyright © 2026 zhanghuan0517 and Goof Off contributors
+afterPack: build/afterPack.cjs
 directories:
   buildResources: build
 files:
@@ -17,8 +19,8 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: goof-off-app
-  artifactName: Goof-Off-${version}-Portable.${ext}
+  executableName: quiet-pane
+  artifactName: QuietPane-${version}-Portable.${ext}
   target:
     - target: nsis
       arch:
@@ -27,26 +29,22 @@ win:
       arch:
         - x64
 nsis:
-  artifactName: Goof-Off-${version}-Setup.${ext}
+  artifactName: QuietPane-${version}-Setup.${ext}
   oneClick: false
   allowToChangeInstallationDirectory: true
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
-  artifactName: Goof-Off-${version}-mac.${ext}
+  icon: build/icon.png
+  artifactName: QuietPane-${version}-mac.${ext}
   category: public.app-category.utilities
   identity: '-'
   entitlements: build/entitlements.mac.plist
   entitlementsInherit: build/entitlements.mac.plist
-  extendInfo:
-    NSCameraUsageDescription: Application requests access to the device's camera.
-    NSMicrophoneUsageDescription: Application requests access to the device's microphone.
-    NSDocumentsFolderUsageDescription: Application requests access to the user's Documents folder.
-    NSDownloadsFolderUsageDescription: Application requests access to the user's Downloads folder.
   notarize: false
 dmg:
-  artifactName: Goof-Off-${version}-mac.${ext}
+  artifactName: QuietPane-${version}-mac.${ext}
 linux:
   target:
     - AppImage

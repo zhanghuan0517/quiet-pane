@@ -38,7 +38,7 @@ export const MANAGED_PREF_KEYS = new Set([
 ])
 
 export const DEFAULT_WEB_PREFS = Object.freeze({
-  ua: 'iphone',
+  ua: 'mac',
   compat: false,
   zoom: 1,
   hideScrollbar: true,
