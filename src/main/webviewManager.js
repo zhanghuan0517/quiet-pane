@@ -29,6 +29,7 @@ import { getRuntimePlatformPolicy } from '../shared/platformPolicy.js'
 import * as preferencesWindow from './preferencesWindow.js'
 import { diagnosticLogger } from './diagnosticLogger.js'
 import { getEffectiveOpacity } from './transparencyService.js'
+import { createPlainViewCss } from '../shared/plainViewStyle.js'
 
 export const HIDE_MEDIA_CSS = `
 img,
@@ -43,20 +44,7 @@ object[type^='image/'] {
   display: none !important;
   visibility: hidden !important;
 }`.trim()
-export const PLAIN_VIEW_CSS = `
-html,
-body,
-body *,
-html::before,
-html::after,
-body::before,
-body::after,
-body *::before,
-body *::after {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-}`.trim()
+export const PLAIN_VIEW_CSS = createPlainViewCss()
 export const STEALTH_TRANSPARENT_BACKGROUND_CSS = `
 html,
 body {
@@ -132,6 +120,7 @@ let opacityCssValue = null
 let stealthTransparentBackgroundCssKey = null
 let hideScrollbarCssKey = null
 let plainViewCssKey = null
+let plainViewCssValue = null
 let hideMediaCssKey = null
 let visibleIntent = false
 let sessionReady = false
@@ -179,6 +168,7 @@ function resetPageScopedCssKeys() {
   stealthTransparentBackgroundCssKey = null
   hideScrollbarCssKey = null
   plainViewCssKey = null
+  plainViewCssValue = null
   hideMediaCssKey = null
 }
 
@@ -1264,6 +1254,7 @@ async function _applyPlainView(overrides = {}) {
     effective.interfaceOpacity ??
     lastOpacity
   const plainView = overrides.plainView ?? prefs.plainView
+  const css = createPlainViewCss({ ...prefs, ...overrides })
   const inject = shouldInjectPlainView({
     windowOpacity: 1,
     shellBackgroundHidden,
@@ -1271,15 +1262,27 @@ async function _applyPlainView(overrides = {}) {
     contentOpacity: interfaceOpacity,
     plainView
   })
+  if (inject && plainViewCssValue !== css && plainViewCssKey) {
+    const key = plainViewCssKey
+    plainViewCssKey = null
+    plainViewCssValue = null
+    try {
+      await wc.removeInsertedCSS(key)
+    } catch {
+      /* ignore */
+    }
+  }
   if (inject && !plainViewCssKey) {
     try {
-      plainViewCssKey = await wc.insertCSS(PLAIN_VIEW_CSS, { cssOrigin: 'user' })
+      plainViewCssKey = await wc.insertCSS(css, { cssOrigin: 'user' })
+      plainViewCssValue = css
     } catch (e) {
       console.warn('[webviewManager] insert plainView CSS failed:', e?.message)
     }
   } else if (!inject && plainViewCssKey) {
     const key = plainViewCssKey
     plainViewCssKey = null
+    plainViewCssValue = null
     try {
       await wc.removeInsertedCSS(key)
     } catch {

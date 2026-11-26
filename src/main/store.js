@@ -38,7 +38,8 @@ const rawStore = new Store({
         windowEnabled: { type: 'boolean' },
         contentEnabled: { type: 'boolean' },
         windowLevel: { type: 'number', minimum: 0.1, maximum: 0.95 },
-        contentLevel: { type: 'number', minimum: 0, maximum: 0.95 }
+        // 保留旧版 0...0.59 的读取兼容；运行时规范化会把它迁移到 0.6 的安全下限。
+        contentLevel: { type: 'number', minimum: 0, maximum: 1 }
       }
     },
     windowBounds: {
@@ -122,7 +123,15 @@ const rawStore = new Store({
         hideScrollbar: { type: 'boolean' },
         plainView: { type: 'boolean' },
         hideMedia: { type: 'boolean', default: false },
-        wheelSpeed: { type: 'number', minimum: 0.1, maximum: 2.0, default: 1.0 }
+        wheelSpeed: { type: 'number', minimum: 0.1, maximum: 2.0, default: 1.0 },
+        plainTextMode: {
+          type: 'string',
+          enum: ['auto', 'light', 'dark', 'custom'],
+          default: 'auto'
+        },
+        plainTextColor: { type: 'string', pattern: '^#[0-9a-fA-F]{6}$', default: '#f7f8ff' },
+        plainContrastEnabled: { type: 'boolean', default: true },
+        plainScrimLevel: { type: 'number', minimum: 0, maximum: 0.65, default: 0.34 }
       }
     },
     siteWebPrefs: {

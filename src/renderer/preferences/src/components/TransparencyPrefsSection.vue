@@ -160,16 +160,16 @@ onUnmounted(() => {
     </label>
 
     <label class="prefs-line">
-      <span class="prefs-line__label">界面淡化强度</span>
+      <span class="prefs-line__label">工具栏不透明度</span>
       <span class="prefs-line__controls">
         <input
           class="prefs-range-new"
           type="range"
-          min="0"
-          max="0.95"
+          min="0.6"
+          max="1"
           step="0.01"
           :value="prefs.contentLevel"
-          :style="{ '--fill-pct': `${(prefs.contentLevel / 0.95) * 100}%` }"
+          :style="{ '--fill-pct': `${((prefs.contentLevel - 0.6) / 0.4) * 100}%` }"
           :disabled="readiness !== 'ready'"
           @input="
             setPatch({ contentLevel: Number($event.target.value) }, { debounceDiagnostic: true })

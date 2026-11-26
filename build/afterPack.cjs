@@ -1,16 +1,6 @@
 const { execFileSync } = require('node:child_process')
 const { join } = require('node:path')
-
-const PRIVACY_USAGE_KEYS = [
-  'NSAudioCaptureUsageDescription',
-  'NSBluetoothAlwaysUsageDescription',
-  'NSBluetoothPeripheralUsageDescription',
-  'NSCameraUsageDescription',
-  'NSDesktopFolderUsageDescription',
-  'NSDocumentsFolderUsageDescription',
-  'NSDownloadsFolderUsageDescription',
-  'NSMicrophoneUsageDescription'
-]
+const PRIVACY_USAGE_KEYS = require('./privacyUsageKeys.cjs')
 
 module.exports = async function removeUnusedPrivacyUsageDescriptions(context) {
   if (context.electronPlatformName !== 'darwin') return

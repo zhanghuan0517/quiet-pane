@@ -33,11 +33,12 @@ export function applyTransparency(effectiveOpacity) {
   const framePolicy = resolveCurrentFramePolicy(effectiveOpacity)
   if (!win || win.isDestroyed?.()) return framePolicy
   const shellBackgroundHidden = effectiveOpacity.shellBackgroundHidden === true
-  const interfaceOpacity = effectiveOpacity.interfaceOpacity ?? effectiveOpacity.contentOpacity ?? 1
   win.setHasShadow(!framePolicy.shouldHideShadow)
   applyWindowMaterial(win, shellBackgroundHidden)
   win.setOpacity(1)
-  applyContentOpacity(interfaceOpacity)
+  // 网页正文与 QuietPane 的工具栏界面分层：用户淡化界面时，正文仍保持 100% 清晰。
+  // 老板键/自动隐藏仍可通过 webviewManager 自己的临时 multiplier 隐藏网页内容。
+  applyContentOpacity(1)
   return framePolicy
 }
 

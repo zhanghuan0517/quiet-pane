@@ -3,7 +3,7 @@ export const DEFAULT_TRANSPARENCY_PREFS = Object.freeze({
   windowEnabled: false,
   contentEnabled: false,
   windowLevel: 0.7,
-  contentLevel: 0.6
+  contentLevel: 0.85
 })
 
 const BOOLEAN_KEYS = ['merged', 'windowEnabled', 'contentEnabled']
@@ -30,7 +30,7 @@ export function sanitizeTransparencyPrefsPatch(patch) {
     out.windowLevel = clamp(patch.windowLevel, 0.1, 0.95)
   }
   if ('contentLevel' in patch && isFiniteNumber(patch.contentLevel)) {
-    out.contentLevel = clamp(patch.contentLevel, 0, 0.95)
+    out.contentLevel = clamp(patch.contentLevel, 0.6, 1)
   }
   return out
 }

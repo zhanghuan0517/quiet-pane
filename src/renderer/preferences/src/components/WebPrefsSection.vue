@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import PrefsSegmented from './base/PrefsSegmented.vue'
+import PrefsSelect from './base/PrefsSelect.vue'
 import PrefsStepper from './base/PrefsStepper.vue'
 
 const props = defineProps({
@@ -13,6 +14,10 @@ const defaultWebPrefs = {
   zoom: 1,
   hideScrollbar: true,
   plainView: false,
+  plainTextMode: 'auto',
+  plainTextColor: '#f7f8ff',
+  plainContrastEnabled: true,
+  plainScrimLevel: 0.34,
   hideMedia: false,
   wheelSpeed: 1
 }
@@ -22,6 +27,13 @@ const uaOptions = [
   { value: 'win', label: 'Windows' },
   { value: 'iphone', label: 'iPhone' },
   { value: 'ipad', label: 'iPad' }
+]
+
+const plainTextModeOptions = [
+  { value: 'auto', label: '自动高对比' },
+  { value: 'light', label: '浅色文字' },
+  { value: 'dark', label: '深色文字' },
+  { value: 'custom', label: '自定义' }
 ]
 
 const webPrefs = ref({ ...defaultWebPrefs })
@@ -292,6 +304,71 @@ onUnmounted(() => {
           :disabled="!writable"
           data-test="web-zoom"
           @update:model-value="setGlobalPatch({ zoom: $event })"
+        />
+      </div>
+    </section>
+
+    <section class="prefs-sect">
+      <div class="prefs-secthead">网页素览可读性</div>
+      <div class="prefs-sectdesc">只作用于网页；不会改变 TXT、EPUB 或 PDF 的文字颜色</div>
+
+      <label class="prefs-line">
+        <span class="prefs-line__label">网页素览</span>
+        <input
+          type="checkbox"
+          :checked="webPrefs.plainView"
+          :disabled="!writable"
+          @change="setGlobalPatch({ plainView: $event.target.checked })"
+        />
+      </label>
+
+      <div class="prefs-line">
+        <span class="prefs-line__label">网页文字模式</span>
+        <PrefsSelect
+          :options="plainTextModeOptions"
+          :model-value="webPrefs.plainTextMode"
+          :disabled="!writable"
+          aria-label="网页文字模式"
+          data-test="plain-text-mode"
+          @update:model-value="setGlobalPatch({ plainTextMode: $event })"
+        />
+      </div>
+
+      <div v-if="webPrefs.plainTextMode === 'custom'" class="prefs-line">
+        <span class="prefs-line__label">网页自定义文字颜色</span>
+        <label class="prefs-swatch" :style="{ background: webPrefs.plainTextColor }">
+          <input
+            data-test="plain-text-color"
+            type="color"
+            aria-label="网页自定义文字颜色"
+            :value="webPrefs.plainTextColor"
+            :disabled="!writable"
+            @change="setGlobalPatch({ plainTextColor: $event.target.value })"
+          />
+        </label>
+      </div>
+
+      <label class="prefs-line">
+        <span class="prefs-line__label">文字对比增强</span>
+        <input
+          type="checkbox"
+          :checked="webPrefs.plainContrastEnabled"
+          :disabled="!writable"
+          @change="setGlobalPatch({ plainContrastEnabled: $event.target.checked })"
+        />
+      </label>
+
+      <div class="prefs-line">
+        <span class="prefs-line__label">阅读衬底</span>
+        <PrefsStepper
+          :model-value="webPrefs.plainScrimLevel"
+          :min="0"
+          :max="0.65"
+          :step="0.05"
+          :scale="100"
+          suffix="%"
+          :disabled="!writable"
+          @update:model-value="setGlobalPatch({ plainScrimLevel: $event })"
         />
       </div>
     </section>

@@ -62,7 +62,15 @@ import { applySystemVisibilityPrefs, getSystemPrefs } from './systemVisibilityPr
 import { getBooksDirectory, getSettingsDirectory } from './safePaths.js'
 
 const PROTECTED_CONFIG_KEYS = new Set(['startupRestoreIntent', 'diagnosticPrefs'])
-const MAIN_ALLOWED_WEB_PREFS = ['plainView', 'hideMedia', 'wheelSpeed']
+const MAIN_ALLOWED_WEB_PREFS = [
+  'plainView',
+  'hideMedia',
+  'wheelSpeed',
+  'plainTextMode',
+  'plainTextColor',
+  'plainContrastEnabled',
+  'plainScrimLevel'
+]
 const MAIN_ALLOWED_TXT_PREFS = ['fontSize', 'lineHeight', 'fontFamily', 'autoTurnSec']
 const MAIN_ALLOWED_EPUB_PREFS = [
   'fontSize',

@@ -21,6 +21,7 @@ import {
   resolvePlatformPolicy
 } from '../shared/platformPolicy.js'
 import { normalizeSiteWebPrefs, sanitizeWebPrefsPatch } from './webPrefs.js'
+import { DEFAULT_PLAIN_VIEW_STYLE } from '../shared/plainViewStyle.js'
 
 export const MANAGED_PREF_KEYS = new Set([
   'webPrefs',
@@ -44,7 +45,8 @@ export const DEFAULT_WEB_PREFS = Object.freeze({
   hideScrollbar: true,
   plainView: false,
   hideMedia: false,
-  wheelSpeed: 1
+  wheelSpeed: 1,
+  ...DEFAULT_PLAIN_VIEW_STYLE
 })
 
 export const DEFAULT_TXT_PREFS = Object.freeze({

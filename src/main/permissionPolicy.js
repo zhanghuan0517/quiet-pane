@@ -1,14 +1,8 @@
 import { session } from 'electron'
+import { installSessionPolicy } from './permissionPolicyCore.mjs'
 
 export function installDefaultSessionPolicy(targetSession = session.defaultSession) {
-  targetSession.setPermissionCheckHandler(() => false)
-  targetSession.setPermissionRequestHandler((_webContents, _permission, callback) => {
-    callback(false)
-  })
-
-  targetSession.setDevicePermissionHandler?.(() => false)
-
-  targetSession.on('will-download', (event) => {
-    event.preventDefault()
-  })
+  installSessionPolicy(targetSession)
 }
+
+export { installSessionPolicy }
