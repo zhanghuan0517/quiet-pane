@@ -1,5 +1,11 @@
 export const PRESET_SITES = [
   {
+    id: 'preset:fenbi',
+    name: '粉笔',
+    url: 'https://www.fenbi.com/page/home?original=tiku',
+    icon: '粉'
+  },
+  {
     id: 'preset:weread',
     name: '微信读书',
     url: 'https://weread.qq.com',

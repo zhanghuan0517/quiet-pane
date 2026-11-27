@@ -13,7 +13,7 @@
   --color-search-hit-bg: rgba(245, 158, 11, 0.42);
   --color-search-hit-current-bg: rgba(217, 119, 6, 0.62);
   --color-active-icon-bg: rgba(0, 0, 0, 0.07);
-  /* 来源锚点：tile-transparent.html / 主页 GOOF·OFF 极淡 Logo */
+  /* 来源锚点：主页 QUIET·PANE 极淡 Logo */
   --color-logo: #c0c5d0;
   /* 来源锚点：history-icons-refined.html / 历史分段白滑块（愿景 §3.8 白滑块、§2.3 switch 白滑块同源） */
   --color-segment-thumb: #FFFFFF;
@@ -158,7 +158,7 @@
   --color-search-hit-bg: rgba(245, 158, 11, 0.30);
   --color-search-hit-current-bg: rgba(217, 119, 6, 0.46);
   --color-active-icon-bg: rgba(255, 255, 255, 0.10);
-  /* 来源锚点：tile-transparent.html / 主页 GOOF·OFF 极淡 Logo（暗色） */
+  /* 来源锚点：主页 QUIET·PANE 极淡 Logo（暗色） */
   --color-logo: #5a5f6a;
   /* 来源锚点：history-icons-refined.html / 历史分段白滑块（愿景 §3.8 暗色 12% 白） */
   --color-segment-thumb: rgba(255, 255, 255, 0.12);

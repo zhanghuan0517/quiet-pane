@@ -129,7 +129,7 @@ onUnmounted(() => {
     <div v-if="status" class="prefs-line__hint is-danger">{{ status }}</div>
 
     <div class="prefs-line">
-      <span class="prefs-line__label">文字颜色</span>
+      <span class="prefs-line__label">文件文字颜色（TXT / EPUB）</span>
       <span class="prefs-line__actions" style="gap: 10px">
         <span class="prefs-swatch" :style="{ background: textColorValue }">
           <input

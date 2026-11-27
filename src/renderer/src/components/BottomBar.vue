@@ -370,6 +370,10 @@ const visualPopoverSnapshot = computed(() => ({
   zoom: sessionZoom.value,
   wheelSpeed: webPrefs.value.wheelSpeed,
   plainView: webPrefs.value.plainView,
+  plainTextMode: webPrefs.value.plainTextMode,
+  plainTextColor: webPrefs.value.plainTextColor,
+  plainContrastEnabled: webPrefs.value.plainContrastEnabled,
+  plainScrimLevel: webPrefs.value.plainScrimLevel,
   hideMedia: webPrefs.value.hideMedia,
   webControlsVisible: webControlsVisible.value,
   theme: buildThemeSnapshot(props.isDarkTheme)
@@ -432,7 +436,31 @@ function applyVisualChildAction(payload) {
   if (payload.action === 'set-zoom') return setWebSessionZoom(payload.value)
   if (payload.action === 'set-wheel-speed') return setWebPrefs({ wheelSpeed: payload.value })
   if (payload.action === 'set-plain-view') return setWebPrefs({ plainView: payload.value })
+  if (payload.action === 'set-plain-text-mode') {
+    return setWebPrefs({ plainTextMode: payload.value })
+  }
+  if (payload.action === 'set-plain-text-color') {
+    return setWebPrefs({ plainTextColor: payload.value })
+  }
+  if (payload.action === 'set-plain-contrast') {
+    return setWebPrefs({ plainContrastEnabled: payload.value })
+  }
+  if (payload.action === 'set-plain-scrim-level') {
+    return setWebPrefs({ plainScrimLevel: payload.value })
+  }
+  if (payload.action === 'reset-visual') return resetVisualReadability()
   if (payload.action === 'set-hide-media') return setWebPrefs({ hideMedia: payload.value })
+}
+
+async function resetVisualReadability() {
+  await setWebPrefs({ plainView: false, hideMedia: false })
+  await setTransparencyPatch({ contentLevel: 0.85 })
+  if (transparencyPrefs.value.merged) {
+    await setTransparencyToggle('unified', false)
+    return
+  }
+  if (transparencyPrefs.value.contentEnabled) await setTransparencyToggle('content', false)
+  if (transparencyPrefs.value.windowEnabled) await setTransparencyToggle('window', false)
 }
 
 const visualActionScheduler = createVisualActionScheduler(applyVisualChildAction)
@@ -442,7 +470,11 @@ function handleVisualChildAction(payload) {
   if (
     payload.action === 'toggle-transparency' ||
     payload.action === 'set-plain-view' ||
-    payload.action === 'set-hide-media'
+    payload.action === 'set-hide-media' ||
+    payload.action === 'set-plain-text-mode' ||
+    payload.action === 'set-plain-text-color' ||
+    payload.action === 'set-plain-contrast' ||
+    payload.action === 'reset-visual'
   ) {
     return applyVisualChildAction(payload)
   }
@@ -808,7 +840,7 @@ onBeforeUnmount(() => {
       :anchor-el="visualPopoverAnchorEl"
       panel-id="popover-visual"
       :offset="BOTTOM_POPOVER_OFFSET"
-      :max-height="252"
+      :max-height="520"
       :desired-size="POPOVER_DESIRED_SIZE.visual"
       :snapshot="visualPopoverSnapshot"
       :child-action-handler="handleVisualChildAction"
@@ -826,6 +858,10 @@ onBeforeUnmount(() => {
           :zoom="sessionZoom"
           :wheel-speed="webPrefs.wheelSpeed"
           :plain-view="webPrefs.plainView"
+          :plain-text-mode="webPrefs.plainTextMode"
+          :plain-text-color="webPrefs.plainTextColor"
+          :plain-contrast-enabled="webPrefs.plainContrastEnabled"
+          :plain-scrim-level="webPrefs.plainScrimLevel"
           :hide-media="webPrefs.hideMedia"
           :web-controls-visible="webControlsVisible"
           @toggle-transparency="applyTransparencyAction($event.kind, $event.value, 'bottom-bar')"
@@ -845,6 +881,11 @@ onBeforeUnmount(() => {
             })
           "
           @update:plain-view="setWebPrefs({ plainView: $event })"
+          @update:plain-text-mode="setWebPrefs({ plainTextMode: $event })"
+          @update:plain-text-color="setWebPrefs({ plainTextColor: $event })"
+          @update:plain-contrast-enabled="setWebPrefs({ plainContrastEnabled: $event })"
+          @update:plain-scrim-level="setWebPrefs({ plainScrimLevel: $event })"
+          @reset-visual="resetVisualReadability"
           @update:hide-media="setWebPrefs({ hideMedia: $event })"
         />
       </template>

@@ -7,6 +7,10 @@ const webPrefs = ref({
   zoom: 1.0,
   hideScrollbar: true,
   plainView: false,
+  plainTextMode: 'auto',
+  plainTextColor: '#f7f8ff',
+  plainContrastEnabled: true,
+  plainScrimLevel: 0.34,
   hideMedia: false,
   wheelSpeed: 1
 })

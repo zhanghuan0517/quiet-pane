@@ -147,7 +147,7 @@ async function onRemove(site) {
 <template>
   <div class="home">
     <div class="home-main">
-      <div class="home-logo caption">GOOF · OFF</div>
+      <div class="home-logo caption">QUIET · PANE</div>
       <button data-test="history-card" class="history-card" @click="emit('open-history')">
         <span class="history-card-marker"
           ><Icon name="history" size="14px" stroke-width="2"

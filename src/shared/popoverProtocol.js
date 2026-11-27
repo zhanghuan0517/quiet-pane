@@ -5,7 +5,7 @@ const MORE_MENU_READING_PANEL_CONTENT_WIDTH = 112
 const MORE_MENU_READING_PANEL_HORIZONTAL_CHROME = 10
 
 export const POPOVER_DESIRED_SIZE = Object.freeze({
-  visual: Object.freeze({ width: 252, height: 252 }),
+  visual: Object.freeze({ width: 252, height: 510 }),
   encoding: Object.freeze({ width: 112, height: 132 }),
   'pdf-zoom': Object.freeze({ width: 132, height: 188 }),
   'address-suggestions': Object.freeze({ width: 220, height: 260 }),
@@ -142,8 +142,8 @@ export function validatePopoverSnapshot(snapshot) {
     }
     if (
       !isFiniteNumber(snapshot.contentLevel) ||
-      snapshot.contentLevel < 0 ||
-      snapshot.contentLevel > 0.95
+      snapshot.contentLevel < 0.6 ||
+      snapshot.contentLevel > 1
     ) {
       return fail('invalid-content-level')
     }
@@ -156,6 +156,25 @@ export function validatePopoverSnapshot(snapshot) {
     )
       return fail('invalid-wheel-speed')
     if (typeof snapshot.plainView !== 'boolean') return fail('invalid-plain-view')
+    if (!['auto', 'light', 'dark', 'custom'].includes(snapshot.plainTextMode)) {
+      return fail('invalid-plain-text-mode')
+    }
+    if (
+      typeof snapshot.plainTextColor !== 'string' ||
+      !/^#[0-9a-fA-F]{6}$/.test(snapshot.plainTextColor)
+    ) {
+      return fail('invalid-plain-text-color')
+    }
+    if (typeof snapshot.plainContrastEnabled !== 'boolean') {
+      return fail('invalid-plain-contrast')
+    }
+    if (
+      !isFiniteNumber(snapshot.plainScrimLevel) ||
+      snapshot.plainScrimLevel < 0 ||
+      snapshot.plainScrimLevel > 0.65
+    ) {
+      return fail('invalid-plain-scrim-level')
+    }
     if (typeof snapshot.hideMedia !== 'boolean') return fail('invalid-hide-media')
     return ok()
   }
@@ -231,7 +250,7 @@ export function validatePopoverAction(payload) {
         : fail('invalid-zoom')
     }
     if (payload.action === 'set-content-level') {
-      return isFiniteNumber(payload.value) && payload.value >= 0 && payload.value <= 0.95
+      return isFiniteNumber(payload.value) && payload.value >= 0.6 && payload.value <= 1
         ? ok()
         : fail('invalid-content-level')
     }
@@ -243,6 +262,25 @@ export function validatePopoverAction(payload) {
     if (payload.action === 'set-plain-view') {
       return typeof payload.value === 'boolean' ? ok() : fail('invalid-plain-view')
     }
+    if (payload.action === 'set-plain-text-mode') {
+      return ['auto', 'light', 'dark', 'custom'].includes(payload.value)
+        ? ok()
+        : fail('invalid-plain-text-mode')
+    }
+    if (payload.action === 'set-plain-text-color') {
+      return typeof payload.value === 'string' && /^#[0-9a-fA-F]{6}$/.test(payload.value)
+        ? ok()
+        : fail('invalid-plain-text-color')
+    }
+    if (payload.action === 'set-plain-contrast') {
+      return typeof payload.value === 'boolean' ? ok() : fail('invalid-plain-contrast')
+    }
+    if (payload.action === 'set-plain-scrim-level') {
+      return isFiniteNumber(payload.value) && payload.value >= 0 && payload.value <= 0.65
+        ? ok()
+        : fail('invalid-plain-scrim-level')
+    }
+    if (payload.action === 'reset-visual') return ok()
     if (payload.action === 'set-hide-media') {
       return typeof payload.value === 'boolean' ? ok() : fail('invalid-hide-media')
     }

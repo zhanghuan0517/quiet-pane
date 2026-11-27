@@ -6,6 +6,7 @@ import path from 'node:path'
 import { dialog } from 'electron'
 import { fileAccessFailure } from './fileAccessFailure.js'
 import { normalizeEpubPrefs, sanitizeEpubPrefsPatch } from './preferencesModel.js'
+import { getBooksDirectory } from './safePaths.js'
 
 const MAX_SIZE = 100 * 1024 * 1024
 const LRU_MAX = 200
@@ -249,6 +250,7 @@ export function createEpubService(store, persist = null, opts = {}) {
   async function openDialog() {
     const generation = maintenanceGeneration
     const { canceled, filePaths } = await dialog.showOpenDialog({
+      defaultPath: getBooksDirectory(),
       filters: [{ name: 'EPUB', extensions: ['epub'] }],
       properties: ['openFile']
     })

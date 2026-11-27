@@ -171,6 +171,10 @@ onBeforeUnmount(() => {
       :zoom="snapshot.zoom"
       :wheel-speed="snapshot.wheelSpeed"
       :plain-view="snapshot.plainView"
+      :plain-text-mode="snapshot.plainTextMode"
+      :plain-text-color="snapshot.plainTextColor"
+      :plain-contrast-enabled="snapshot.plainContrastEnabled"
+      :plain-scrim-level="snapshot.plainScrimLevel"
       :hide-media="snapshot.hideMedia"
       :web-controls-visible="snapshot.webControlsVisible !== false"
       @toggle-transparency="
@@ -185,6 +189,17 @@ onBeforeUnmount(() => {
       @update:zoom="send({ id: 'visual', action: 'set-zoom', value: $event })"
       @update:wheel-speed="send({ id: 'visual', action: 'set-wheel-speed', value: $event })"
       @update:plain-view="send({ id: 'visual', action: 'set-plain-view', value: $event })"
+      @update:plain-text-mode="send({ id: 'visual', action: 'set-plain-text-mode', value: $event })"
+      @update:plain-text-color="
+        send({ id: 'visual', action: 'set-plain-text-color', value: $event })
+      "
+      @update:plain-contrast-enabled="
+        send({ id: 'visual', action: 'set-plain-contrast', value: $event })
+      "
+      @update:plain-scrim-level="
+        send({ id: 'visual', action: 'set-plain-scrim-level', value: $event })
+      "
+      @reset-visual="send({ id: 'visual', action: 'reset-visual' })"
       @update:hide-media="send({ id: 'visual', action: 'set-hide-media', value: $event })"
       @pointerup.capture="commitVisual"
       @change.capture="commitVisual"

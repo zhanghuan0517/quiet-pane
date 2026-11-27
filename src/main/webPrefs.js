@@ -3,6 +3,7 @@ import {
   getRuntimePlatformPolicy,
   resolvePlatformPolicy
 } from '../shared/platformPolicy.js'
+import { DEFAULT_PLAIN_VIEW_STYLE, sanitizePlainViewStylePatch } from '../shared/plainViewStyle.js'
 
 export const UA_MAP = {
   mac: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -35,13 +36,14 @@ export function shouldInjectPlainView({
 
 const UA_KEYS = ['mac', 'win', 'iphone', 'ipad']
 const DEFAULT_WEB_PREFS = Object.freeze({
-  ua: 'iphone',
+  ua: 'mac',
   compat: false,
   zoom: 1,
   hideScrollbar: true,
   plainView: false,
   hideMedia: false,
-  wheelSpeed: 1
+  wheelSpeed: 1,
+  ...DEFAULT_PLAIN_VIEW_STYLE
 })
 const SITE_PREF_KEYS = ['ua', 'compat', 'zoom', 'hideScrollbar']
 const SITE_PREF_LIMIT = 100
@@ -61,6 +63,7 @@ export function sanitizeWebPrefsPatch(patch, opts = {}) {
   }
   if ('plainView' in patch && typeof patch.plainView === 'boolean') out.plainView = patch.plainView
   if ('hideMedia' in patch && typeof patch.hideMedia === 'boolean') out.hideMedia = patch.hideMedia
+  Object.assign(out, sanitizePlainViewStylePatch(patch))
   if ('zoom' in patch && typeof patch.zoom === 'number' && Number.isFinite(patch.zoom)) {
     if (clampZoom) out.zoom = clamp(patch.zoom, 0.5, 2.0)
     else if (patch.zoom >= 0.5 && patch.zoom <= 2.0) out.zoom = patch.zoom
@@ -110,6 +113,10 @@ export function sanitizeSiteWebPrefsPatch(patch) {
   delete clean.plainView
   delete clean.hideMedia
   delete clean.wheelSpeed
+  delete clean.plainTextMode
+  delete clean.plainTextColor
+  delete clean.plainContrastEnabled
+  delete clean.plainScrimLevel
   return clean
 }
 
@@ -152,7 +159,11 @@ export function resolveEffectiveWebPrefs({ webPrefs, siteWebPrefs, origin }) {
     hideScrollbar: override.hideScrollbar,
     plainView: base.plainView,
     hideMedia: base.hideMedia,
-    wheelSpeed: base.wheelSpeed
+    wheelSpeed: base.wheelSpeed,
+    plainTextMode: base.plainTextMode,
+    plainTextColor: base.plainTextColor,
+    plainContrastEnabled: base.plainContrastEnabled,
+    plainScrimLevel: base.plainScrimLevel
   }
 }
 

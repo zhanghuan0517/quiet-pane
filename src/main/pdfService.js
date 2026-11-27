@@ -7,6 +7,7 @@ import store, { persistDebounced } from './store.js'
 import { getMainWindow } from './windowManager.js'
 import { fileAccessFailure } from './fileAccessFailure.js'
 import { normalizePdfPrefs, sanitizePdfPrefsPatch } from './preferencesModel.js'
+import { getBooksDirectory } from './safePaths.js'
 
 const MAX_SIZE = 500 * 1024 * 1024
 const LRU_MAX = 200
@@ -77,6 +78,7 @@ export function createPdfService() {
     const generation = maintenanceGeneration
     const win = getMainWindow()
     const opts = {
+      defaultPath: getBooksDirectory(),
       filters: [{ name: 'PDF', extensions: ['pdf'] }],
       properties: ['openFile']
     }

@@ -291,7 +291,7 @@ const SEARCH_ERROR_STAGES = new Set([
 const NUMERIC_RANGES = Object.freeze({
   wheelSpeed: { min: 0.1, max: 2.0, fallback: 1 },
   windowLevel: { min: 0.1, max: 0.95, fallback: 0.7 },
-  contentLevel: { min: 0, max: 0.95, fallback: 0.6 }
+  contentLevel: { min: 0.6, max: 1, fallback: 0.85 }
 })
 
 function sanitizeSource(value) {

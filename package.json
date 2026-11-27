@@ -1,18 +1,18 @@
 {
-  "name": "goof-off-app",
-  "version": "1.1.2",
+  "name": "quiet-pane",
+  "version": "0.1.2",
   "private": true,
-  "description": "A lightweight stealth reader for macOS and Windows 11",
+  "description": "A quiet floating window for web browsing and local reading",
   "main": "./out/main/index.js",
-  "author": "triWater",
+  "author": "zhanghuan0517; based on Goof Off by triWater",
   "license": "GPL-3.0-only",
-  "homepage": "https://github.com/triWater-Chen/goof-off#readme",
+  "homepage": "https://github.com/zhanghuan0517/quiet-pane#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/triWater-Chen/goof-off.git"
+    "url": "git+https://github.com/zhanghuan0517/quiet-pane.git"
   },
   "bugs": {
-    "url": "https://github.com/triWater-Chen/goof-off/issues"
+    "url": "https://github.com/zhanghuan0517/quiet-pane/issues"
   },
   "engines": {
     "node": ">=22.12.0",
@@ -22,6 +22,10 @@
   "scripts": {
     "format": "prettier --write .",
     "lint": "eslint . --max-warnings=0",
+    "test": "node --test test/*.test.mjs",
+    "verify:mac-privacy": "node scripts/verifyMacPrivacy.cjs",
+    "icons:tray": "electron scripts/generateTrayIcons.cjs",
+    "check:privacy": "npm test && npm run verify:mac-privacy",
     "start": "electron-vite preview",
     "dev": "electron-vite dev",
     "build": "electron-vite build",
